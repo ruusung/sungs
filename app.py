@@ -43,7 +43,7 @@ Instructions:
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=YOOSUNG_PROMPT)
+model = genai.GenerativeModel('gemini-1.5-flash-latest', system_instruction=YOOSUNG_PROMPT)
 chat = model.start_chat(history=[])
 
 @app.route("/callback", methods=['GET', 'POST'])
@@ -68,3 +68,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run()
+
