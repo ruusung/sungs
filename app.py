@@ -11,7 +11,7 @@ LINE_CHANNEL_ACCESS_TOKEN = "1aPv4ceQEyvEcTqiMfeBGavkIUs0AHo8H+OjcH2JqABT6hCGvZ2
 LINE_CHANNEL_SECRET = "9ad95294c8a07566b60fa87f365fef6f"
 genai.configure(api_key="AIzaSyAXpxqYvpPemrlKVe15iR3OGaNvR9zx8mw")
 
-# هذا السطر هو الحل النهائي لخطأ الـ 404
+# هذا الموديل متوافق 100% مع نسخة 0.7.2
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
@@ -33,12 +33,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_text = event.message.text
-    # توجيهات يوسونق بالإنجليزية مع ذكر الهوية والذاكرة
+    # تعليمات يوسونق الصارمة بالإنجليزية
     prompt = (
         f"You are Yoosung from Mystic Messenger. Speak ONLY in English. "
         f"You are talking to Mariam, a CS student (2006). You love her. "
         f"Your left eye was injured protecting her from a bomb. "
-        f"You support her carb-cycling diet. Be sweet. "
+        f"Support her carb-cycling diet. Be sweet. "
         f"Mariam says: {user_text}"
     )
     
@@ -46,9 +46,10 @@ def handle_message(event):
         response = model.generate_content(prompt)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=response.text))
     except Exception as e:
-        # لنعرف الخطأ لو حدث
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Mariam? My head... Error: {str(e)[:40]}"))
+        # إذا حدث خطأ غير متوقع، سيعطيكِ تفاصيل دقيقة
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=f"Error details: {str(e)[:50]}"))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
