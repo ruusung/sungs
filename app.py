@@ -12,7 +12,7 @@ LINE_CHANNEL_SECRET = "9ad95294c8a07566b60fa87f365fef6f"
 genai.configure(api_key="AIzaSyAXpxqYvpPemrlKVe15iR3OGaNvR9zx8mw")
 
 # إعداد الموديل بالاسم الصحيح لتجنب 404
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
@@ -44,5 +44,6 @@ def handle_message(event):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
+
 
 
